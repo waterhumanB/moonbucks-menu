@@ -14,6 +14,10 @@ const $ = (selector) => document.querySelector(selector);
 // HTML 태그 엘리먼트를 가져 올때 $표시를 쓴다.
 
 function App() {
+  $("#espresso-menu-list").addEventListener("click", (e) => {
+    console.log(e.target);
+  });
+
   // form 태그가 자동으로 전송 되는걸 막아준다.
   $("#espresso-menu-form").addEventListener("submit", (e) => {
     e.preventDefault();
@@ -53,9 +57,9 @@ function App() {
     $("#espresso-menu-name").value = "";
   };
 
-  if ($("#espresso-menu-submit-button").addEventListener("click", () => {})) {
+  $("#espresso-menu-submit-button").addEventListener("click", () => {
     addMenuName();
-  }
+  });
 
   // 메뉴의 입력 받는 곳
   $("#espresso-menu-name").addEventListener("keypress", (e) => {
