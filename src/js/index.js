@@ -10,6 +10,15 @@
 // - [x] 메뉴가 추가되고 나면, input은 빈 값으로 초기화한다.
 // - [x] 사용자 입력값이 빈 값이라면 추가되지 않는다.
 
+// TODO 메뉴 수정
+// - [x] 메뉴의 수정 버튼 클릭 이벤트를 받고, 메뉴 수정하는 prompt 인터페이스 모달창이 뜬다.
+// - [x] prompt 인터페이스 모달창에서 신규메뉴명을 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
+
+// TODO 메뉴 삭제
+// - [x] 메뉴 삭제 버튼 클릭 이벤트를 받고, 메뉴 삭제하는 confirm 인터페이스 모달창이 뜬다.
+// - [x] confirm 모달창에서 확인 및 취소 버튼 중에 확인 버튼을 누르면 삭제가 된다.
+// - [x] 총 메뉴 갯수를 count 해서 보여준다.
+
 const $ = (selector) => document.querySelector(selector);
 // HTML 태그 엘리먼트를 가져 올때 $표시를 쓴다.
 
@@ -18,33 +27,6 @@ function App() {
     const menuCount = $("#espresso-menu-list").querySelectorAll("li").length;
     $(".menu-count").innerText = `총 ${menuCount}개`;
   };
-
-  // TODO 메뉴 수정
-  // - [x] 메뉴의 수정 버튼 클릭 이벤트를 받고, 메뉴 수정하는 prompt 인터페이스 모달창이 뜬다.
-  // - [x] prompt 인터페이스 모달창에서 신규메뉴명을 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
-
-  $("#espresso-menu-list").addEventListener("click", (e) => {
-    if (e.target.classList.contains("menu-edit-button")) {
-      const $menuName = e.target.closest("li").querySelector(".menu-name");
-      const editMenuName = prompt("메뉴를 수정해 주세요", $menuName.innerText);
-      $menuName.innerText = editMenuName;
-    }
-    // TODO 메뉴 삭제
-    // - [x] 메뉴 삭제 버튼 클릭 이벤트를 받고, 메뉴 삭제하는 confirm 인터페이스 모달창이 뜬다.
-    // - [x] confirm 모달창에서 확인 및 취소 버튼 중에 확인 버튼을 누르면 삭제가 된다.
-    // - [x] 총 메뉴 갯수를 count 해서 보여준다.
-    if (e.target.classList.contains("menu-remove-button")) {
-      if (confirm("메뉴를 삭제 하시겠습니까?")) {
-        e.target.closest("li").remove();
-        updateMenuCounter();
-      }
-    }
-  });
-
-  // form 태그가 자동으로 전송 되는걸 막아준다.
-  $("#espresso-menu-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-  });
 
   const addMenuName = () => {
     if ($("#espresso-menu-name").value === "") {
@@ -78,9 +60,35 @@ function App() {
     $("#espresso-menu-name").value = "";
   };
 
-  $("#espresso-menu-submit-button").addEventListener("click", () => {
-    addMenuName();
+  const updateMenuName = (e) => {
+    const $menuName = e.target.closest("li").querySelector(".menu-name");
+    const editMenuName = prompt("메뉴를 수정해 주세요", $menuName.innerText);
+    $menuName.innerText = editMenuName;
+  };
+
+  const removeMenuName = (e) => {
+    e.target.closest("li").remove();
+    updateMenuCounter();
+  };
+
+  $("#espresso-menu-list").addEventListener("click", (e) => {
+    if (e.target.classList.contains("menu-edit-button")) {
+      updateMenuName(e);
+    }
+
+    if (e.target.classList.contains("menu-remove-button")) {
+      if (confirm("메뉴를 삭제 하시겠습니까?")) {
+        removeMenuName(e);
+      }
+    }
   });
+
+  // form 태그가 자동으로 전송 되는걸 막아준다.
+  $("#espresso-menu-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+  });
+
+  $("#espresso-menu-submit-button").addEventListener("click", addMenuName());
 
   // 메뉴의 입력 받는 곳
   $("#espresso-menu-name").addEventListener("keypress", (e) => {
@@ -92,10 +100,3 @@ function App() {
 }
 
 App();
-// TODO 메뉴 수정
-// - [ ] 메뉴의 수정 버튼 클릭 이벤트를 받고, 메뉴 수정하는 prompt 인터페이스 모달창이 뜬다.
-// - [ ] prompt 인터페이스 모달창에서 신규메뉴명을 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
-
-// TODO 메뉴 삭제
-// - [ ] 메뉴 삭제 버튼 클릭 이벤트를 받고, 메뉴 삭제하는 confirm 인터페이스 모달창이 뜬다.
-// - [ ] confirm 모달창에서 확인 및 취소 버튼 중에 확인 버튼을 누르면 삭제가 된다.
