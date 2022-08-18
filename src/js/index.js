@@ -2,6 +2,10 @@
 // 요구 사항을 보고 만들어야할 기능들을 분석하고 목적을 알고 있어야, 다른 길에서 헤매지 않고 프로그래밍을 할 수 있다.
 // 요구 사항을 분석 하면서 내가 할 수 있는 기능들과 모르는 기능들을 분리 할 수 있어, 어떤 것을 공부 해야 할지 알 수 있다.
 
+// 인사이트
+// 이벤트 위임법, 요구사항을 전략적으로 접근하는 방법, 단계별로 세세하게 나누는 것의 중요도
+// DOM 요소를 가져올 때는 $표시, 새로운 메서드, insertAdjacentHtml, closest
+
 // TODO 메뉴 추가
 // - [x] 에스프레소 메뉴에 입력 받고 엔터키 입력으로 추가한다.
 // - [x] 에스프레소 메뉴에 입력 받고 확인버튼 클릭 입력으로 추가한다.
@@ -33,7 +37,6 @@ function App() {
       alert("메뉴를 입력해주세요.");
       return;
     }
-
     const espressoMenuName = $("#espresso-menu-name").value;
     const menuItemTemplate = (espressoMenuName) => {
       return `<li class="menu-list-item d-flex items-center py-2">
@@ -88,7 +91,7 @@ function App() {
     e.preventDefault();
   });
 
-  $("#espresso-menu-submit-button").addEventListener("click", addMenuName());
+  $("#espresso-menu-submit-button").addEventListener("click", addMenuName);
 
   // 메뉴의 입력 받는 곳
   $("#espresso-menu-name").addEventListener("keypress", (e) => {
